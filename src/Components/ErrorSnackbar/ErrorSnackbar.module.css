@@ -1,0 +1,34 @@
+.main_block {
+    min-width: 350px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: indianred;
+    color: white;
+    position: fixed;
+    bottom: 30px;
+    left: 40px;
+    transform: translateX(-150%);
+    animation: vision 1s forwards;
+}
+
+@keyframes vision {
+    0% {
+        transform: translateX(-150%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.error_message {
+    padding-left: 10px;
+}
+
+.remove_btn {
+    padding: 0 10px 0 10px;
+    margin: 0 10px 0 20px;
+    cursor: pointer;
+    border: 1px solid white;
+}

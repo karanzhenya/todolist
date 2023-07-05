@@ -1,5 +1,6 @@
 import axios from "axios";
 import {ResponseType} from "./todolist-api";
+import {RequestStatusType} from "../state/app-reducer";
 
 
 export enum TaskStatuses {
@@ -45,6 +46,10 @@ type TaskResponseType = {
     error: string
     totalCount: number
     items: TaskType[]
+}
+
+export type TaskDomainType = TaskType & {
+    entityStatus: RequestStatusType
 }
 
 const instance = axios.create({

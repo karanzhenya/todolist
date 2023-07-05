@@ -2,6 +2,7 @@ import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType}
 import {taskApi, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from "../api/task-api";
 import {AppDispatch, RootState} from "./store";
 import {setAppStatusAC} from "./app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
 export type TaskStateType = {
     [key: string]: TaskType[]
@@ -124,9 +125,15 @@ export const fetchTaskTC = (todolistId: string) => {
 export const removeTaskTC = (taskId: string, todolistId: string) => {
     return (dispatch: AppDispatch) => {
         dispatch(setAppStatusAC('loading'))
-        taskApi.removeTask(todolistId, taskId).then(() => {
-            dispatch(removeTaskAC(taskId, todolistId))
-            dispatch(setAppStatusAC('succeeded'))
+        taskApi.removeTask(todolistId, taskId).then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(removeTaskAC(taskId, todolistId))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        }).catch((error) => {
+            handleServerNetworkError(error, dispatch)
         })
     }
 }
@@ -135,8 +142,14 @@ export const addTaskTC = (todolistId: string, title: string) => {
     return (dispatch: AppDispatch) => {
         dispatch(setAppStatusAC('loading'))
         taskApi.createTask(todolistId, title).then(res => {
-            dispatch(addTaskAC(res.data.data.item))
-            dispatch(setAppStatusAC('succeeded'))
+            if (res.data.resultCode === 0) {
+                dispatch(addTaskAC(res.data.data.item))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        }).catch((error) => {
+            handleServerNetworkError(error, dispatch)
         })
     }
 }
@@ -160,9 +173,15 @@ export const updateTaskStatusTC = (todolistId: string, taskId: string, domainMod
                 deadline: task.deadline,
                 ...domainModel
             }
-            taskApi.updateTask(todolistId, taskId, model).then(() => {
-                dispatch(updateTaskAC(todolistId, taskId, model))
-                dispatch(setAppStatusAC('succeeded'))
+            taskApi.updateTask(todolistId, taskId, model).then((res) => {
+                if (res.data.resultCode === 0) {
+                    dispatch(updateTaskAC(todolistId, taskId, model))
+                    dispatch(setAppStatusAC('succeeded'))
+                } else {
+                    handleServerAppError(res.data, dispatch)
+                }
+            }).catch((error) => {
+                handleServerNetworkError(error, dispatch)
             })
         }
     }

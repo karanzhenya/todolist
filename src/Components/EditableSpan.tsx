@@ -3,9 +3,10 @@ import React, {ChangeEvent, useState} from 'react';
 type EditableSpanPropsType = {
     title: string
     onChange: (title: string) => void
+    disabled?: boolean
 }
 
-const EditableSpan = React.memo (function({title, onChange}: EditableSpanPropsType) {
+const EditableSpan = React.memo (function({title, onChange, disabled}: EditableSpanPropsType) {
     const [titleValue, setTitleValue] = useState<string>('')
     const [editMode, setEditMode] = useState<boolean>(true)
 
@@ -27,6 +28,7 @@ const EditableSpan = React.memo (function({title, onChange}: EditableSpanPropsTy
                 </> :
                 <input value={titleValue}
                        autoFocus
+                       disabled={disabled}
                        onChange={(e) => onChangeTitleValueHandler(e)}
                        onBlur={changeTitleHandler}/>}
         </div>

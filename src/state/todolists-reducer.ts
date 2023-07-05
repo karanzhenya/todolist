@@ -2,6 +2,7 @@ import {FilterValueType} from "../App";
 import {todolistApi, TodolistDomainType, TodolistResponseType} from "../api/todolist-api";
 import {AppDispatch, AppThunk} from "./store";
 import {RequestStatusType, setAppErrorAC, setAppStatusAC} from "./app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
 
 export type RemoveTodolistActionType = {
@@ -49,10 +50,8 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
                 ...d,
                 filter: sessionStorage.getItem(d.id) === null ? 'all' : sessionStorage.getItem(d.id)
             }))
-        case 'REMOVE-TODOLIST':{
-            let stateCopy = [...state]
-            let filteredTodo = stateCopy.filter(s => s.id !== action.id)
-            return filteredTodo
+        case 'REMOVE-TODOLIST': {
+            return state.filter(s => s.id !== action.id)
         }
         case 'ADD-TODOLIST':
             sessionStorage.setItem(action.newTodolist.id, 'all')
@@ -64,12 +63,7 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
                 filter: sessionStorage.getItem(action.newTodolist.id)
             }, ...state]
         case 'CHANGE-TODOLIST-TITLE': {
-            let stateCopy = [...state]
-            let todo = stateCopy.find(s => s.id === action.id)
-            if (todo) {
-                todo.title = action.title
-            }
-            return stateCopy
+            return state.map(s => s.id === action.id ? {...s, title: action.title} : s)
         }
         case 'CHANGE-TODOLIST-FILTER': {
             let stateCopy = [...state]
@@ -81,12 +75,7 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
             return stateCopy
         }
         case "CHANGE-TODOLIST-ENTITY-STATUS": {
-            let stateCopy = [...state]
-            let todo = stateCopy.find(s => s.id === action.id)
-            if (todo) {
-                todo.entityStatus = action.entityStatus
-            }
-            return stateCopy
+            return state.map(s => s.id === action.id ? {...s, entityStatus: action.entityStatus} : s)
         }
 
         default:
@@ -119,6 +108,8 @@ export const fetchTodolistsTC = (): AppThunk => {
         todolistApi.getTodolists().then(res => {
             dispatch(setTodolistsAC(res.data))
             dispatch(setAppStatusAC('succeeded'))
+        }).catch((error) => {
+            handleServerNetworkError(error, dispatch)
         })
     }
 }
@@ -127,10 +118,16 @@ export const removeTodolistTC = (todolistId: string): AppThunk => {
     return (dispatch: AppDispatch) => {
         dispatch(setAppStatusAC('loading'))
         dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
-        todolistApi.removeTodolist(todolistId).then(() => {
-            dispatch(removeTodolistAC(todolistId))
-            dispatch(setAppStatusAC('succeeded'))
-        })
+        todolistApi.removeTodolist(todolistId).then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(removeTodolistAC(todolistId))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        }).catch((error) => {
+            handleServerNetworkError(error, dispatch)
+        }).finally(() => dispatch(changeTodolistEntityStatusAC(todolistId, 'idle')))
     }
 }
 
@@ -142,13 +139,11 @@ export const addTodolistTC = (title: string): AppThunk => {
                 dispatch(addTodolistAC(res.data.data.item))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
-                dispatch(setAppErrorAC(res.data.messages[0]))
-                dispatch(setAppStatusAC('failed'))
+                handleServerAppError(res.data, dispatch)
             }
         })
             .catch((error) => {
-                dispatch(setAppErrorAC(error.message))
-                dispatch(setAppStatusAC('failed'))
+                handleServerNetworkError(error, dispatch)
             })
     }
 }
@@ -161,12 +156,10 @@ export const changeTodolistTitleTC = (todolistId: string, title: string) => {
                 dispatch(changeTodolistTitleAC(todolistId, title))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
-                dispatch(setAppErrorAC(res.data.messages[0]))
-                dispatch(setAppStatusAC('failed'))
+                handleServerAppError(res.data, dispatch)
             }
         }).catch((error) => {
-            dispatch(setAppErrorAC(error.message))
-            dispatch(setAppStatusAC('failed'))
+            handleServerNetworkError(error, dispatch)
         })
     }
 }

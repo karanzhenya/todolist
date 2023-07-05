@@ -5,23 +5,23 @@ export type AppInitialStateType = {
     error: string
 }
 
-type SetAppStatusActionType = {
+export type SetAppStatusActionType = {
     type: 'SET-APP-STATUS'
     status: RequestStatusType
 }
-type SetAppErrorActionType = {
+export type SetAppErrorActionType = {
     type: 'SET-APP-ERROR'
     error: string
 }
 
-export type CommonActionsType = SetAppStatusActionType | SetAppErrorActionType
+export type AppActionsType = SetAppStatusActionType | SetAppErrorActionType
 
 const initialState: AppInitialStateType = {
     status: "idle",
     error: ''
 }
 
-export const appReducer = (state: AppInitialStateType = initialState, action: CommonActionsType): AppInitialStateType => {
+export const appReducer = (state: AppInitialStateType = initialState, action: AppActionsType): AppInitialStateType => {
     switch (action.type) {
         case "SET-APP-STATUS": {
             return {...state, status: action.status}

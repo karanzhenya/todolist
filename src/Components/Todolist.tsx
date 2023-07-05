@@ -60,10 +60,10 @@ const Todolist = React.memo(function ({
     return (
         <div>
             <div style={{display: "flex"}}>
-                <EditableSpan title={title} onChange={changeTodoTitleHandler}/>
+                <EditableSpan title={title} onChange={changeTodoTitleHandler} disabled={!!entityStatus}/>
                 <button onClick={() => removeTodolist(todolistId)} disabled={!!entityStatus}>X</button>
             </div>
-            <AddItemForm addItem={addNewTask}  disabled={true}/>
+            <AddItemForm addItem={addNewTask} disabled={!!entityStatus}/>
             <ul>
                 {taskForTodolist.map(t => {
                     return <Task key={t.id} todolistId={todolistId} task={t}

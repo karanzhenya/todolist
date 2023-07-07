@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import './App.css';
+import s from './App.module.css'
 import Todolist from "./Components/Todolist";
 import AddItemForm from "./Components/AddItemForm";
 import {
@@ -12,11 +12,13 @@ import {
 import {addTaskTC, removeTaskTC, TaskStateType, updateTaskStatusTC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "./state/store";
-import {taskApi, TaskStatuses} from "./api/task-api";
+import {TaskStatuses} from "./api/task-api";
 import {AppInitialStateType, setAppErrorAC} from "./state/app-reducer";
 import {Preloader} from "./Components/Preloader/Preloader";
 import ErrorSnackbar from "./Components/ErrorSnackbar/ErrorSnackbar";
 import {TodolistDomainType} from "./api/todolist-api";
+import Navbar from "./Components/Navbar/Navbar";
+import {Routes} from 'react-router-dom';
 
 
 export type FilterValueType = 'all' | 'active' | 'completed'
@@ -67,30 +69,41 @@ function App() {
         dispatch(fetchTodolistsTC())
     }, [])
     return (
-        <div className="App">
+        <div className={s.app}>
+            <Routes>
+
+            </Routes>
             {
                 app.status === 'loading' && <Preloader/>
             }
-            <AddItemForm addItem={addTodolist}/>
-            {todolists.map((todo) => {
-                let taskForTodolist = tasks[todo.id]
-                return <Todolist key={todo.id}
-                                 title={todo.title}
-                                 todolistId={todo.id}
-                                 entityStatus={todo.entityStatus}
-                                 filter={todo.filter}
-                                 tasks={taskForTodolist}
-                                 changeTaskStatus={changeTaskStatus}
-                                 addTask={addTask}
-                                 removeTask={removeTask}
-                                 changeFilter={changeTodolistFilter}
-                                 removeTodolist={removeTodolist}
-                                 changeTodolistTitle={changeTodolistTitle}
-                                 changeTaskTitle={changeTaskTitle}/>
-            })}
+            <Navbar/>
+            <div className={s.main}>
+                <div className={s.add_form}>
+                    <AddItemForm addItem={addTodolist}/>
+                </div>
+                <div className={s.content}>
+                    {todolists.map((todo) => {
+                        let taskForTodolist = tasks[todo.id]
+                        return <Todolist key={todo.id}
+                                         title={todo.title}
+                                         todolistId={todo.id}
+                                         entityStatus={todo.entityStatus}
+                                         filter={todo.filter}
+                                         tasks={taskForTodolist}
+                                         changeTaskStatus={changeTaskStatus}
+                                         addTask={addTask}
+                                         removeTask={removeTask}
+                                         changeFilter={changeTodolistFilter}
+                                         removeTodolist={removeTodolist}
+                                         changeTodolistTitle={changeTodolistTitle}
+                                         changeTaskTitle={changeTaskTitle}/>
+                    })}
+                </div>
+            </div>
             <ErrorSnackbar error={app.error} removeErrorMessage={removeErrorMessage}/>
         </div>
     );
 }
 
 export default App;
+

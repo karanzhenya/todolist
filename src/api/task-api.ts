@@ -48,9 +48,6 @@ type TaskResponseType = {
     items: TaskType[]
 }
 
-export type TaskDomainType = TaskType & {
-    entityStatus: RequestStatusType
-}
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/todo-lists',

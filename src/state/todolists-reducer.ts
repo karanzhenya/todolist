@@ -1,7 +1,7 @@
 import {FilterValueType} from "../App";
 import {todolistApi, TodolistDomainType, TodolistResponseType} from "../api/todolist-api";
 import {AppDispatch, AppThunk} from "./store";
-import {RequestStatusType, setAppErrorAC, setAppStatusAC} from "./app-reducer";
+import {RequestStatusType, setAppStatusAC} from "./app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
 
@@ -46,38 +46,23 @@ const initialState: TodolistDomainType[] = []
 export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: TodolistsActionsType) => {
     switch (action.type) {
         case "SET-TODOLISTS":
-            return action.data.map(d => ({
-                ...d,
-                filter: sessionStorage.getItem(d.id) === null ? 'all' : sessionStorage.getItem(d.id)
-            }))
-        case 'REMOVE-TODOLIST': {
+            return action.data.map(d => ({...d, filter: 'all'}))
+        case 'REMOVE-TODOLIST':
             return state.filter(s => s.id !== action.id)
-        }
         case 'ADD-TODOLIST':
-            sessionStorage.setItem(action.newTodolist.id, 'all')
             return [{
                 id: action.newTodolist.id,
                 title: action.newTodolist.title,
                 order: action.newTodolist.order,
                 addedDate: action.newTodolist.addedDate,
-                filter: sessionStorage.getItem(action.newTodolist.id)
+                filter: 'all'
             }, ...state]
-        case 'CHANGE-TODOLIST-TITLE': {
+        case 'CHANGE-TODOLIST-TITLE':
             return state.map(s => s.id === action.id ? {...s, title: action.title} : s)
-        }
-        case 'CHANGE-TODOLIST-FILTER': {
-            let stateCopy = [...state]
-            let todo = stateCopy.find(s => s.id === action.id)
-            if (todo) {
-                todo.filter = action.filter
-                sessionStorage.setItem(todo.id, action.filter)
-            }
-            return stateCopy
-        }
-        case "CHANGE-TODOLIST-ENTITY-STATUS": {
+        case 'CHANGE-TODOLIST-FILTER':
+            return state.map(s => s.id === action.id ? {...s, filter: action.filter} : s)
+        case "CHANGE-TODOLIST-ENTITY-STATUS":
             return state.map(s => s.id === action.id ? {...s, entityStatus: action.entityStatus} : s)
-        }
-
         default:
             return state
     }

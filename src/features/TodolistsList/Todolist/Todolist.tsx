@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect} from "react";
-import {FilterValueType} from "../App";
-import AddItemForm from "./AddItemForm";
-import EditableSpan from "./EditableSpan";
-import {Task} from "./Task";
-import {TaskStatuses, TaskType} from "../api/task-api";
+import {FilterValueType} from "../../../app/App";
+import AddItemForm from "../../../Components/AddItemForm";
+import EditableSpan from "../../../Components/EditableSpan";
+import {Task} from "./Task/Task";
+import {TaskStatuses, TaskType} from "../../../api/task-api";
 import {useDispatch} from "react-redux";
-import {AppDispatch} from "../state/store";
-import {fetchTaskTC} from "../state/tasks-reducer";
-import {RequestStatusType} from "../state/app-reducer";
+import {AppDispatch} from "../../../state/store";
+import {fetchTaskTC} from "../../../state/tasks-reducer";
+import {RequestStatusType} from "../../../state/app-reducer";
 
 type TodolistPropsType = {
     title: string
@@ -56,7 +56,7 @@ const Todolist = React.memo(function ({
     }
     useEffect(() => {
         dispatch(fetchTaskTC(todolistId))
-    }, [])
+    }, [dispatch, todolistId])
     return (
         <div>
             <div style={{display: "flex"}}>

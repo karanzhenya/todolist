@@ -1,6 +1,6 @@
-import EditableSpan from "./EditableSpan";
+import EditableSpan from "../../../../Components/EditableSpan";
 import React, {useCallback} from "react";
-import {TaskStatuses, TaskType} from "../api/task-api";
+import {TaskStatuses, TaskType} from "../../../../api/task-api";
 
 type TaskPropsType = {
     todolistId: string

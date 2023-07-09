@@ -6,7 +6,7 @@ import {
     todolistsReducer
 } from "./todolists-reducer";
 import {v1} from "uuid";
-import {FilterValueType} from "../App";
+import {FilterValueType} from "../app/App";
 import {TodolistDomainType} from "../api/todolist-api";
 
 let todolistId1: string

@@ -1,4 +1,4 @@
-import {FilterValueType} from "../App";
+import {FilterValueType} from "../app/App";
 import {todolistApi, TodolistDomainType, TodolistResponseType} from "../api/todolist-api";
 import {AppDispatch, AppThunk} from "./store";
 import {RequestStatusType, setAppStatusAC} from "./app-reducer";

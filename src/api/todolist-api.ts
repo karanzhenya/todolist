@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {FilterValueType} from "../App";
+import {FilterValueType} from "../app/App";
 import {RequestStatusType} from "../state/app-reducer";
 
 export type TodolistResponseType = {

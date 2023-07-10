@@ -1,0 +1,14 @@
+.active_filter {
+    background-color: #4bc8eb;
+}
+
+.todolist_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.todolist_title button {
+    height: 20px;
+}

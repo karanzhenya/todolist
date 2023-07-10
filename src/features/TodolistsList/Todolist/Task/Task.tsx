@@ -1,6 +1,7 @@
-import EditableSpan from "../../../../Components/EditableSpan";
+import EditableSpan from "../../../../Components/EditableSpan/EditableSpan";
 import React, {useCallback} from "react";
 import {TaskStatuses, TaskType} from "../../../../api/task-api";
+import s from './Task.module.css'
 
 type TaskPropsType = {
     todolistId: string
@@ -33,9 +34,8 @@ export const Task = React.memo(function ({
     const removeTaskHandler = () => {
         removeTask(todolistId, task.id)
     }
-
-    return <li key={task.id} className={task.status === 2 ? 'is-done' : ''}>
-        <div style={{display: "flex"}}>
+    return <li key={task.id} className={task.status === 2 ? s.is_done : ''}>
+        <div className={s.task}>
             <input type="checkbox" checked={task.status === TaskStatuses.Completed}
                    onChange={changeTaskStatusHandler}/>
             <EditableSpan title={task.title} onChange={changeTaskTitleHandler}/>

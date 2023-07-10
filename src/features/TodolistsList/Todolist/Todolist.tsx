@@ -1,13 +1,14 @@
 import React, {useCallback, useEffect} from "react";
 import {FilterValueType} from "../../../app/App";
-import AddItemForm from "../../../Components/AddItemForm";
-import EditableSpan from "../../../Components/EditableSpan";
+import AddItemForm from "../../../Components/AddItemForm/AddItemForm";
+import EditableSpan from "../../../Components/EditableSpan/EditableSpan";
 import {Task} from "./Task/Task";
 import {TaskStatuses, TaskType} from "../../../api/task-api";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../../../state/store";
 import {fetchTaskTC} from "../../../state/tasks-reducer";
 import {RequestStatusType} from "../../../state/app-reducer";
+import s from './Todolist.module.css'
 
 type TodolistPropsType = {
     title: string
@@ -59,7 +60,7 @@ const Todolist = React.memo(function ({
     }, [dispatch, todolistId])
     return (
         <div>
-            <div style={{display: "flex"}}>
+            <div className={s.todolist_title}>
                 <EditableSpan title={title} onChange={changeTodoTitleHandler} disabled={!!entityStatus}/>
                 <button onClick={() => removeTodolist(todolistId)} disabled={!!entityStatus}>X</button>
             </div>
@@ -72,13 +73,13 @@ const Todolist = React.memo(function ({
                 })}
             </ul>
             <div>
-                <button className={filter === 'all' ? 'active-filter' : ''}
+                <button className={filter === 'all' ? s.active_filter : ''}
                         onClick={() => changeFilter(todolistId, 'all')}>All
                 </button>
-                <button className={filter === 'active' ? 'active-filter' : ''}
+                <button className={filter === 'active' ? s.active_filter : ''}
                         onClick={() => changeFilter(todolistId, 'active')}>Active
                 </button>
-                <button className={filter === 'completed' ? 'active-filter' : ''}
+                <button className={filter === 'completed' ? s.active_filter : ''}
                         onClick={() => changeFilter(todolistId, 'completed')}>Completed
                 </button>
             </div>

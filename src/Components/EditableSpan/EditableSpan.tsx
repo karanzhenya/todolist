@@ -13,7 +13,7 @@ const EditableSpan = React.memo (function({title, onChange, disabled}: EditableS
     const onChangeTitleValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitleValue(e.currentTarget.value)
     }
-    const deactiveVisibleMode = () => {
+    const deactivateVisibleMode = () => {
         setEditMode(false)
         setTitleValue(title)
     }
@@ -24,7 +24,7 @@ const EditableSpan = React.memo (function({title, onChange, disabled}: EditableS
     return (
         <div style={{display: "flex"}}>
             {editMode ? <>
-                    <h3 onDoubleClick={deactiveVisibleMode}>{title}</h3>
+                    <h3 onDoubleClick={deactivateVisibleMode}>{title}</h3>
                 </> :
                 <input value={titleValue}
                        autoFocus

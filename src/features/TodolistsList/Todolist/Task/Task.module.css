@@ -1,0 +1,19 @@
+.is_done {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task button {
+    height: 20px;
+}
+
+.task input {
+    min-width: 17px;
+    height: 17px;
+}

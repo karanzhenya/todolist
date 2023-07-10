@@ -11,7 +11,7 @@ export const ErrorSnackbar = React.memo(function ({error, removeErrorMessage}: E
         setTimeout(() => {
             removeErrorMessage()
         }, 3000)
-    }, [error])
+    }, [error,removeErrorMessage])
     console.log('error snackbar')
     return (<>
             {error && <div className={s.main_block}>

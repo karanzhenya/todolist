@@ -1,14 +1,80 @@
-.active_filter {
-    background-color: #4bc8eb;
+.todolist {
+    width: 736px;
+    box-sizing: border-box;
+}
+
+.todolist_block {
+    width: 100%;
+    border: 1px solid white;
+    box-sizing: border-box;
+}
+
+.todolist_main_info {
+    display: flex;
+    justify-content: space-between;
+    font-family: Inter sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding-bottom: 20px;
 }
 
 .todolist_title {
+    color: #4EA8DE;
+    display: flex;
+}
+
+.todolist_main_info_done {
+    font-family: Inter sans-serif;
+    font-size: 14px;
+    color: #8284FA;
+}
+
+.add_form {
+    position: relative;
+    display: flex;
+    top: -27px;
+    width: 736px;
+    height: 54px;
+    box-sizing: border-box;
+    gap: 8px;
+}
+
+.add_form input {
+    width: 638px;
+    border: none;
+    border-radius: 10px;
+    color: #808080;
+    background-color: #262626;
+    outline: none;
+    text-align: center;
+    font-family: Inter sans-serif;
+    letter-spacing: 0.6px;
+    font-size: 16px;
+}
+
+.add_form input::-webkit-input-placeholder {
+    color: white;
+    opacity: 0.1;
+}
+
+.add_form button {
+    width: 90px;
+    height: 52px;
+    border-radius: 10px;
+    color: #F2F2F2;
+    background-color: #1E6F9F;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 3px;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+    font-family: Inter sans-serif;
+    letter-spacing: 0.6px;
+    font-size: 16px;
 }
 
-.todolist_title button {
-    height: 20px;
+.active_filter {
+    background-color: #4bc8eb;
 }

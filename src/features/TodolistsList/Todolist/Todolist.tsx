@@ -27,19 +27,19 @@ type TodolistPropsType = {
 
 
 const Todolist = React.memo(function ({
-                                                  title,
-                                                  tasks,
-                                                  filter,
-                                                  entityStatus,
-                                                  todolistId,
-                                                  removeTask,
-                                                  addTask,
-                                                  changeTaskStatus,
-                                                  changeTaskTitle,
-                                                  changeFilter,
-                                                  removeTodolist,
-                                                  changeTodolistTitle
-                                              }: TodolistPropsType) {
+                                          title,
+                                          tasks,
+                                          filter,
+                                          entityStatus,
+                                          todolistId,
+                                          removeTask,
+                                          addTask,
+                                          changeTaskStatus,
+                                          changeTaskTitle,
+                                          changeFilter,
+                                          removeTodolist,
+                                          changeTodolistTitle
+                                      }: TodolistPropsType) {
     const dispatch: AppDispatch = useDispatch()
     const addNewTask = useCallback((title: string) => {
         addTask(todolistId, title)
@@ -59,29 +59,35 @@ const Todolist = React.memo(function ({
         dispatch(fetchTaskTC(todolistId))
     }, [dispatch, todolistId])
     return (
-        <div>
-            <div className={s.todolist_title}>
-                <EditableSpan title={title} onChange={changeTodoTitleHandler} disabled={!!entityStatus}/>
-                <button onClick={() => removeTodolist(todolistId)} disabled={!!entityStatus}>X</button>
-            </div>
-            <AddItemForm addItem={addNewTask} disabled={!!entityStatus}/>
-            <ul>
-                {taskForTodolist.map(t => {
-                    return <Task key={t.id} todolistId={todolistId} task={t}
-                          changeTaskTitle={changeTaskTitle}
-                          changeTaskStatus={changeTaskStatus} removeTask={removeTask}/>
-                })}
-            </ul>
-            <div>
-                <button className={filter === 'all' ? s.active_filter : ''}
-                        onClick={() => changeFilter(todolistId, 'all')}>All
-                </button>
-                <button className={filter === 'active' ? s.active_filter : ''}
-                        onClick={() => changeFilter(todolistId, 'active')}>Active
-                </button>
-                <button className={filter === 'completed' ? s.active_filter : ''}
-                        onClick={() => changeFilter(todolistId, 'completed')}>Completed
-                </button>
+        <div className={s.todolist}>
+            <AddItemForm placeholder={'Task name'} className={s.add_form} addItem={addNewTask}
+                         disabled={!!entityStatus}/>
+            <div className={s.todolist_block}>
+                <div className={s.todolist_main_info}>
+                    <div className={s.todolist_title}>
+                        <EditableSpan title={title} onChange={changeTodoTitleHandler} disabled={!!entityStatus}/>
+                        <button onClick={() => removeTodolist(todolistId)} disabled={!!entityStatus}>X</button>
+                    </div>
+                    <div className={s.todolist_main_info_done}>Выполнено: 2</div>
+                </div>
+                <ul>
+                    {taskForTodolist.map(t => {
+                        return <Task key={t.id} todolistId={todolistId} task={t}
+                                     changeTaskTitle={changeTaskTitle}
+                                     changeTaskStatus={changeTaskStatus} removeTask={removeTask}/>
+                    })}
+                </ul>
+                <div>
+                    <button className={filter === 'all' ? s.active_filter : ''}
+                            onClick={() => changeFilter(todolistId, 'all')}>All
+                    </button>
+                    <button className={filter === 'active' ? s.active_filter : ''}
+                            onClick={() => changeFilter(todolistId, 'active')}>Active
+                    </button>
+                    <button className={filter === 'completed' ? s.active_filter : ''}
+                            onClick={() => changeFilter(todolistId, 'completed')}>Completed
+                    </button>
+                </div>
             </div>
         </div>
     )

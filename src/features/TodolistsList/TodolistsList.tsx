@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import s from "../../app/App.module.css";
+import s from "./TodolistsList.module.css";
 import AddItemForm from "../../Components/AddItemForm/AddItemForm";
 import Todolist from "./Todolist/Todolist";
 import {useDispatch, useSelector} from "react-redux";
@@ -58,10 +58,10 @@ function TodolistsList() {
         dispatch(fetchTodolistsTC())
     }, [dispatch])
     return (
-        <div className={s.main}>
-            <div className={s.add_form}>
+        <div className={s.todolists}>
+            {/*<div className={s.add_form}>
                 <AddItemForm addItem={addTodolist}/>
-            </div>
+            </div>*/}
             <div className={s.content}>
                 {todolists.map((todo) => {
                     let taskForTodolist = tasks[todo.id]

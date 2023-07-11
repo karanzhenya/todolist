@@ -1,51 +1,38 @@
-
-
 li {
-  list-style-type: none;
+    list-style-type: none;
+}
+
+h1,h2,h3,h4 {
+    padding: 0;
+    margin: 0;
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  flex-wrap: wrap;
-  top: 47px;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
+
+
 .add_form {
-  padding: 30px 0 30px 0;
+    padding: 30px 0 30px 0;
 }
 
-.content {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-}
 
-.app > div {
-  margin-right: 50px;
-}
 
 .error {
-  border: red 1px solid;
+    border: red 1px solid;
 }
 
 .error-message {
-  color: red;
+    color: red;
 }
 
 .active-filter {
-  background-color: aquamarine;
+    background-color: aquamarine;
 }
 
 .is-done {
-  opacity: 0.5;
+    opacity: 0.5;
 }

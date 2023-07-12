@@ -9,6 +9,7 @@ import {AppDispatch} from "../../../state/store";
 import {fetchTaskTC} from "../../../state/tasks-reducer";
 import {RequestStatusType} from "../../../state/app-reducer";
 import s from './Todolist.module.css'
+import trash from '../../../files/trash.svg'
 
 type TodolistPropsType = {
     title: string
@@ -66,18 +67,18 @@ const Todolist = React.memo(function ({
                 <div className={s.todolist_main_info}>
                     <div className={s.todolist_title}>
                         <EditableSpan title={title} onChange={changeTodoTitleHandler} disabled={!!entityStatus}/>
-                        <button onClick={() => removeTodolist(todolistId)} disabled={!!entityStatus}>X</button>
+                        <img className={s.remove_button} src={trash} onClick={() => removeTodolist(todolistId)} aria-disabled={!!entityStatus}/>
                     </div>
                     <div className={s.todolist_main_info_done}>Выполнено: 2</div>
                 </div>
-                <ul>
+                <ul className={s.tasks}>
                     {taskForTodolist.map(t => {
                         return <Task key={t.id} todolistId={todolistId} task={t}
                                      changeTaskTitle={changeTaskTitle}
                                      changeTaskStatus={changeTaskStatus} removeTask={removeTask}/>
                     })}
                 </ul>
-                <div>
+                <div className={s.filters}>
                     <button className={filter === 'all' ? s.active_filter : ''}
                             onClick={() => changeFilter(todolistId, 'all')}>All
                     </button>

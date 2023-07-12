@@ -1,12 +1,43 @@
-.is_done {
-    opacity: 0.5;
-    text-decoration: line-through;
-}
-
 .task {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-around;
+    min-height: 72px;
+    color: white;
+    border: 1px solid #333333;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #262626;
+}
+
+.checkbox input[type="checkbox"] {
+    appearance: none;
+    width: 24px;
+    background: url("/src/files/circle.svg") center no-repeat;
+}
+
+.checkbox input[type=checkbox]:checked {
+    background: url("/src/files/arrow.svg") no-repeat center #5E60CE;
+    clip-path: circle(40% at 50% 50%);
+    appearance: none;
+}
+
+
+.text {
+    width: 632px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    color: #F2F2F2;
+    font-family: Inter sans-serif;
+    font-size: 14px;
+}
+
+.remove_button {
+    display: flex;
+    align-items: center;
+    width: 24px;
+    cursor: pointer;
 }
 
 .task button {
@@ -17,3 +48,8 @@
     min-width: 17px;
     height: 17px;
 }
+
+/*.is_done {
+    opacity: 0.5;
+    text-decoration: line-through;
+}*/

@@ -5,8 +5,12 @@
 
 .todolist_block {
     width: 100%;
-    border: 1px solid white;
     box-sizing: border-box;
+}
+.tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .todolist_main_info {
@@ -41,7 +45,7 @@
 
 .add_form input {
     width: 638px;
-    border: none;
+    border: 1px solid #0D0D0D;
     border-radius: 10px;
     color: #808080;
     background-color: #262626;
@@ -77,4 +81,21 @@
 
 .active_filter {
     background-color: #4bc8eb;
+}
+
+.remove_button {
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filters button{
+    margin: 10px 0 10px 0;
+    border: none;
+    width: 33%;
+    border-radius: 5px;
 }

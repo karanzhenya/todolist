@@ -1,5 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import plus from '../../files/plus.svg'
+import {setAppErrorAC} from "../../state/app-reducer";
+import {useDispatch} from "react-redux";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -10,6 +12,7 @@ type AddItemFormPropsType = {
 const AddItemForm = React.memo(function ({addItem, disabled, className, placeholder}: AddItemFormPropsType) {
         const [title, setTitle] = useState('')
         const [error, setError] = useState<string | null>(null)
+        const dispatch = useDispatch();
 
         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
             setTitle(e.currentTarget.value)
@@ -29,7 +32,7 @@ const AddItemForm = React.memo(function ({addItem, disabled, className, placehol
                 addItem(title)
                 setTitle('')
             } else {
-                setError('Title is required!')
+                dispatch(setAppErrorAC('Title is required!'))
             }
         }
         return (

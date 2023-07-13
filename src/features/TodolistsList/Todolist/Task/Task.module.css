@@ -2,8 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    min-height: 72px;
-    color: white;
+    min-height: 52px;
     border: 1px solid #333333;
     border-radius: 10px;
     box-sizing: border-box;
@@ -29,8 +28,10 @@
     display: flex;
     align-items: center;
     color: #F2F2F2;
+    padding: 0 20px 0 5px;
     font-family: Inter sans-serif;
     font-size: 14px;
+    word-wrap: anywhere;
 }
 
 .remove_button {

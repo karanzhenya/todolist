@@ -76,6 +76,7 @@ function TodolistsList() {
                                      removeTask={removeTask}
                                      changeFilter={changeTodolistFilter}
                                      removeTodolist={removeTodolist}
+                                     addTodolist={addTodolist}
                                      changeTodolistTitle={changeTodolistTitle}
                                      changeTaskTitle={changeTaskTitle}/>
                 })}

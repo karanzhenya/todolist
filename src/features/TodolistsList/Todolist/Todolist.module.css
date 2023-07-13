@@ -1,12 +1,14 @@
 .todolist {
-    width: 736px;
+    width: 636px;
     box-sizing: border-box;
 }
 
 .todolist_block {
     width: 100%;
     box-sizing: border-box;
+    padding-top: 34px;
 }
+
 .tasks {
     display: flex;
     flex-direction: column;
@@ -27,23 +29,33 @@
     display: flex;
 }
 
-.todolist_main_info_done {
+.todolist_create_new {
     font-family: Inter sans-serif;
     font-size: 14px;
     color: #8284FA;
+    background-image: linear-gradient(45deg, currentColor 60%, #4bc8eb);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+    cursor: pointer;
 }
 
-.add_form {
+.todolist_create_new:hover {
+    background-size: 100% 2px;
+}
+
+.add_task_form {
     position: relative;
     display: flex;
-    top: -27px;
-    width: 736px;
-    height: 54px;
+    top: -22px;
+    width: 636px;
+    height: 44px;
     box-sizing: border-box;
     gap: 8px;
 }
 
-.add_form input {
+.add_task_form input {
     width: 638px;
     border: 1px solid #0D0D0D;
     border-radius: 10px;
@@ -56,12 +68,12 @@
     font-size: 16px;
 }
 
-.add_form input::-webkit-input-placeholder {
+.add_task_form input::-webkit-input-placeholder {
     color: white;
     opacity: 0.1;
 }
 
-.add_form button {
+.add_task_form button {
     width: 90px;
     height: 52px;
     border-radius: 10px;
@@ -93,9 +105,14 @@
     justify-content: space-between;
 }
 
-.filters button{
+.filters button {
     margin: 10px 0 10px 0;
     border: none;
     width: 33%;
+    background-color: #1E6F9F;
     border-radius: 5px;
+    cursor: pointer;
+    font-family: Inter sans-serif;
+    font-size: 14px;
+    color: #F2F2F2;
 }

@@ -2,7 +2,7 @@ li {
     list-style-type: none;
 }
 
-h1,h2,h3,h4,ul {
+h1,h2,h3,h4,ul,input {
     padding: 0;
     margin: 0;
 }
@@ -13,14 +13,6 @@ h1,h2,h3,h4,ul {
     flex-wrap: wrap;
 }
 
-
-
-.add_form {
-    padding: 30px 0 30px 0;
-}
-
-
-
 .error {
     border: red 1px solid;
 }
@@ -29,10 +21,3 @@ h1,h2,h3,h4,ul {
     color: red;
 }
 
-.active-filter {
-    background-color: aquamarine;
-}
-
-.is-done {
-    opacity: 0.5;
-}

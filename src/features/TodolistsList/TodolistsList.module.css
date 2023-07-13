@@ -3,7 +3,7 @@
     justify-content: center;
     width: 100%;
     background-color: #1A1A1A;
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 160px);
     height: 100%;
 }
 .content {

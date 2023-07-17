@@ -25,6 +25,7 @@ type TodolistPropsType = {
     addTodolist: (title: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
+    setActive: (isActive: boolean) => void
 }
 
 
@@ -40,29 +41,17 @@ const Todolist = React.memo(function ({
                                           changeTaskTitle,
                                           changeFilter,
                                           removeTodolist,
-                                          addTodolist,
+                                          setActive,
                                           changeTodolistTitle
                                       }: TodolistPropsType) {
     const dispatch: AppDispatch = useDispatch()
 
-    const [titleField, setTitleField] = useState<string>('')
-    const [visibilityTitleField, setVisibilityTitleField] = useState<boolean>(false)
     const addNewTask = useCallback((title: string) => {
         addTask(todolistId, title)
     }, [todolistId, addTask])
     const changeTodoTitleHandler = useCallback((title: string) => {
         changeTodolistTitle(todolistId, title)
     }, [changeTodolistTitle, todolistId])
-
-    const openField = () => {
-        setVisibilityTitleField(true)
-    }
-    const closeField = () => {
-        setVisibilityTitleField(false)
-    }
-    const changeTitleFieldHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitleField(e.currentTarget.value)
-    }
 
     let taskForTodolist = tasks
 
@@ -77,8 +66,7 @@ const Todolist = React.memo(function ({
     }, [dispatch, todolistId])
     return (
         <div className={s.todolist}>
-            <AddItemForm placeholder={'Task name'} className={s.add_task_form} addItem={addNewTask}
-                         disabled={!!entityStatus}/>
+            <AddItemForm placeholder={'Task name'} addItem={addNewTask} disabled={!!entityStatus}/>
             <div className={s.todolist_block}>
                 <div className={s.todolist_main_info}>
                     <div className={s.todolist_title}>
@@ -86,8 +74,7 @@ const Todolist = React.memo(function ({
                         <img className={s.remove_button} src={trash} onClick={() => removeTodolist(todolistId)}
                              aria-disabled={!!entityStatus}/>
                     </div>
-                    <AddItemForm addItem={addTodolist} className={s.add_task_form}/>
-                    <div className={s.todolist_create_new}>+ Create new todolist</div>
+                    <div className={s.todolist_create_new} onClick={() => setActive(true)}>+ Create new todolist</div>
                 </div>
                 <ul className={s.tasks}>
                     {taskForTodolist.map(t => {

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import s from "./TodolistsList.module.css";
 import AddItemForm from "../../Components/AddItemForm/AddItemForm";
 import Todolist from "./Todolist/Todolist";
@@ -15,12 +15,15 @@ import {
     removeTodolistTC
 } from "../../state/todolists-reducer";
 import {FilterValueType} from "../../app/App";
+import Modal from "../../Components/Modal/Modal";
 
 function TodolistsList() {
 
     const tasks = useSelector<RootState, TaskStateType>(state => state.tasks)
     const todolists = useSelector<RootState, TodolistDomainType[]>(state => state.todolists)
     const dispatch: AppDispatch = useDispatch()
+
+    const [active, setActive] = useState(false)
 
     const removeTask = useCallback((todolistId: string, taskId: string) => {
         dispatch(removeTaskTC(taskId, todolistId))
@@ -37,9 +40,9 @@ function TodolistsList() {
     const addTask = useCallback((todolistId: string, title: string) => {
         dispatch(addTaskTC(todolistId, title))
     }, [dispatch])
-
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistTC(title))
+        setActive(false)
     }, [dispatch])
 
     const removeTodolist = useCallback((todolistId: string) => {
@@ -59,9 +62,7 @@ function TodolistsList() {
     }, [dispatch])
     return (
         <div className={s.todolists}>
-            {/*<div className={s.add_form}>
-                <AddItemForm addItem={addTodolist}/>
-            </div>*/}
+            <Modal active={active} setActive={setActive}><AddItemForm addItem={addTodolist}/></Modal>
             <div className={s.content}>
                 {todolists.map((todo) => {
                     let taskForTodolist = tasks[todo.id]
@@ -74,6 +75,7 @@ function TodolistsList() {
                                      changeTaskStatus={changeTaskStatus}
                                      addTask={addTask}
                                      removeTask={removeTask}
+                                     setActive={setActive}
                                      changeFilter={changeTodolistFilter}
                                      removeTodolist={removeTodolist}
                                      addTodolist={addTodolist}

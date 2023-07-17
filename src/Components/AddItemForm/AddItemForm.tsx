@@ -2,14 +2,14 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import plus from '../../files/plus.svg'
 import {setAppErrorAC} from "../../state/app-reducer";
 import {useDispatch} from "react-redux";
+import s from './AddItemForm.module.css'
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
     disabled?: boolean
-    className?: string
     placeholder?: string
 }
-const AddItemForm = React.memo(function ({addItem, disabled, className, placeholder}: AddItemFormPropsType) {
+const AddItemForm = React.memo(function ({addItem, disabled, placeholder}: AddItemFormPropsType) {
         const [title, setTitle] = useState('')
         const [error, setError] = useState<string | null>(null)
         const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const AddItemForm = React.memo(function ({addItem, disabled, className, placehol
             }
         }
         return (
-            <div className={className}>
+            <div className={s.add_item_form}>
                 <input placeholder={placeholder} className={error ? 'error' : ''} onChange={onChangeHandler} value={title}
                        onKeyPress={onKeyPressHandler} disabled={disabled}/>
                 <button onClick={addNewItem} disabled={disabled}>Add<img src={plus}/></button>

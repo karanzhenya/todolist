@@ -1,19 +1,16 @@
 import React from "react";
-import './ModalStyle.css';
+import s from './ModalStyle.module.css';
 
 type ModalType = {
     active: boolean
-    carId: string
     setActive: (activeStatus: boolean) => void
-    children: React.ReactChild | React.ReactNode
+    children: React.ReactNode
 }
-const Modal = ({active, setActive, children, carId}: ModalType) => {
-    console.log(children)
+const Modal = ({active, setActive, children}: ModalType) => {
     return (
-        <div className={active ? `modal active` : 'modal'} onClick={() => setActive(false)}>
-            <div className={active ? 'modalContent active' : 'modalContent'} onClick={e => e.stopPropagation()}>
+        <div className={active ? `${s.modal} ${s.active}` : s.modal} onClick={() => setActive(false)}>
+            <div className={active ? `${s.modal_content} ${s.active}` : s.modal_content} onClick={e => e.stopPropagation()}>
                 {children}
-                {children == '' ? <button onClick={() => console.log(carId)}>Добавить</button> : null}
             </div>
         </div>
     )

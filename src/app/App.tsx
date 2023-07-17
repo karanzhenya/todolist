@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import s from './App.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../state/store";
@@ -12,6 +12,8 @@ import Login from "../features/Login/Login";
 import Page404 from "../features/Page404/Page404";
 import logo from '../files/Logo.svg'
 import Header from "../features/Header/Header";
+import Modal from "../Components/Modal/Modal";
+import AddItemForm from "../Components/AddItemForm/AddItemForm";
 
 
 export type FilterValueType = 'all' | 'active' | 'completed'
